@@ -1,47 +1,43 @@
 package till.edu.englishlearningapp.models;
 
 public class Word {
-    private String id;
-    private String english;
-    private String vietnamese;
+    private int id;
+    private String topicId;
+    private String englishWord;
+    private String vietnameseMeaning;
     private String phonetic;
-    private String imageUrl;
-    private String topicId; // Dùng để biết từ này thuộc chủ đề nào (Animals, Food...)
-    private boolean isFavorite; // Trạng thái từ yêu thích
+    private String exampleSentence;
+    private boolean isFavorite;
 
-    // 1. Constructor rỗng - CỰC KỲ QUAN TRỌNG để Firebase có thể đổ dữ liệu vào
-    public Word() {
-    }
+    public Word() {}
 
-    // 2. Constructor đầy đủ để mình tạo đối tượng mới khi cần
-    public Word(String id, String english, String vietnamese, String phonetic, String imageUrl, String topicId) {
+    public Word(int id, String topicId, String englishWord, String phonetic, String vietnameseMeaning, String exampleSentence, boolean isFavorite) {
         this.id = id;
-        this.english = english;
-        this.vietnamese = vietnamese;
-        this.phonetic = phonetic;
-        this.imageUrl = imageUrl;
         this.topicId = topicId;
-        this.isFavorite = false; // Mặc định từ mới chưa phải là từ yêu thích
+        this.englishWord = englishWord;
+        this.phonetic = phonetic;
+        this.vietnameseMeaning = vietnameseMeaning;
+        this.exampleSentence = exampleSentence;
+        this.isFavorite = isFavorite;
     }
 
-    // 3. Các hàm Getter và Setter (Tính đóng gói trong OOP)
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getEnglish() { return english; }
-    public void setEnglish(String english) { this.english = english; }
+    public String getTopicId() { return topicId; }
+    public void setTopicId(String topicId) { this.topicId = topicId; }
 
-    public String getVietnamese() { return vietnamese; }
-    public void setVietnamese(String vietnamese) { this.vietnamese = vietnamese; }
+    public String getEnglishWord() { return englishWord; }
+    public void setEnglishWord(String englishWord) { this.englishWord = englishWord; }
+
+    public String getVietnameseMeaning() { return vietnameseMeaning; }
+    public void setVietnameseMeaning(String vietnameseMeaning) { this.vietnameseMeaning = vietnameseMeaning; }
 
     public String getPhonetic() { return phonetic; }
     public void setPhonetic(String phonetic) { this.phonetic = phonetic; }
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-
-    public String getTopicId() { return topicId; }
-    public void setTopicId(String topicId) { this.topicId = topicId; }
+    public String getExampleSentence() { return exampleSentence; }
+    public void setExampleSentence(String exampleSentence) { this.exampleSentence = exampleSentence; }
 
     public boolean isFavorite() { return isFavorite; }
     public void setFavorite(boolean favorite) { isFavorite = favorite; }

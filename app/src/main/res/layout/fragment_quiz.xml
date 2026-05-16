@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Test Your\nKnowledge!"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2C3E50"
+            android:lineSpacingExtra="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Choose a category and earn XP"
+            android:textSize="15sp"
+            android:textColor="#7F8C8D" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:paddingHorizontal="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beginner"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_chip_active"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Intermediate"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:background="@drawable/bg_chip_inactive"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginStart="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Advanced"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:background="@drawable/bg_chip_inactive"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardVocabQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:gravity="center">
+                        <com.google.android.material.card.MaterialCardView android:layout_width="48dp" android:layout_height="48dp" app:cardBackgroundColor="#E3F2FD" app:cardCornerRadius="16dp" app:strokeWidth="0dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_sort_alphabetically" app:tint="#1976D2"/>
+                        </com.google.android.material.card.MaterialCardView>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vocabulary" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="12dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Match &amp; Fill" android:textSize="12sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGrammarQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:gravity="center">
+                        <com.google.android.material.card.MaterialCardView android:layout_width="48dp" android:layout_height="48dp" app:cardBackgroundColor="#E8F5E9" app:cardCornerRadius="16dp" app:strokeWidth="0dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_edit" app:tint="#4CAF50"/>
+                        </com.google.android.material.card.MaterialCardView>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Grammar" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="12dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tenses &amp; Rules" android:textSize="12sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardListeningQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:gravity="center">
+                        <com.google.android.material.card.MaterialCardView android:layout_width="48dp" android:layout_height="48dp" app:cardBackgroundColor="#FFF3E0" app:cardCornerRadius="16dp" app:strokeWidth="0dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_lock_silent_mode_off" app:tint="#FF9800"/>
+                        </com.google.android.material.card.MaterialCardView>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Listening" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="12dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Audio &amp; Dialogs" android:textSize="12sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSpeakingQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:gravity="center">
+                        <com.google.android.material.card.MaterialCardView android:layout_width="48dp" android:layout_height="48dp" app:cardBackgroundColor="#F3E5F5" app:cardCornerRadius="16dp" app:strokeWidth="0dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_btn_speak_now" app:tint="#9C27B0"/>
+                        </com.google.android.material.card.MaterialCardView>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Speaking" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="12dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI Pronunciation" android:textSize="12sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardReadingQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:gravity="center">
+                        <com.google.android.material.card.MaterialCardView android:layout_width="48dp" android:layout_height="48dp" app:cardBackgroundColor="#E0F2F1" app:cardCornerRadius="16dp" app:strokeWidth="0dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_agenda" app:tint="#009688"/>
+                        </com.google.android.material.card.MaterialCardView>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Reading" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="12dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Passages &amp; T/F" android:textSize="12sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMixedQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:gravity="center">
+                        <com.google.android.material.card.MaterialCardView android:layout_width="48dp" android:layout_height="48dp" app:cardBackgroundColor="#FFF9C4" app:cardCornerRadius="16dp" app:strokeWidth="0dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_mylocation" app:tint="#FBC02D"/>
+                        </com.google.android.material.card.MaterialCardView>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mixed" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="12dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ultimate Test" android:textSize="12sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="#1976D2"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/imgTrophy"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@android:drawable/star_on"
+                    app:tint="#FFEB3B"
+                    android:layout_centerVertical="true"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@id/imgTrophy"
+                    android:layout_marginStart="16dp"
+                    android:layout_centerVertical="true">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Global Leaderboard" android:textSize="16sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="You are in Top 20% today!" android:textSize="13sp" android:textColor="#BBDEFB" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_media_play"
+                    app:tint="#FFFFFF"/>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

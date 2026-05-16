@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:text="What do you want to\nlearn today?"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2C3E50"
+            android:lineSpacingExtra="4dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    app:tint="#95A5A6"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search grammar, vocab..."
+                    android:textSize="15sp"
+                    android:textColor="#2C3E50"
+                    android:textColorHint="#95A5A6"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:paddingHorizontal="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beginner"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:background="@drawable/bg_chip_active"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Intermediate"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:background="@drawable/bg_chip_inactive"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginStart="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Advanced"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:background="@drawable/bg_chip_inactive"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#1976D2"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="0dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
+                        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_menu_sort_alphabetically" app:tint="#FFFFFF"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Vocabulary" android:textSize="16sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="0dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
+                        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_menu_edit" app:tint="#1976D2"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Grammar" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" android:text="60%" android:textSize="12sp" android:textStyle="bold" android:textColor="#4CAF50"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFF3E0"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="0dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
+                        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_lock_silent_mode_off" app:tint="#FF9800"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Listening" android:textSize="16sp" android:textStyle="bold" android:textColor="#E65100"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#F3E5F5"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="0dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
+                        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_btn_speak_now" app:tint="#9C27B0"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Speaking" android:textSize="16sp" android:textStyle="bold" android:textColor="#4A148C"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grammar Basics"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2C3E50"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See All"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#1976D2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:paddingHorizontal="12dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:cardBackgroundColor="#E3F2FD"
+                            app:cardCornerRadius="12dp"
+                            app:strokeWidth="0dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="T1" android:textSize="16sp" android:textStyle="bold" android:textColor="#1976D2"/>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Simple Present Tense" android:textSize="18sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="16dp"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Learn about facts, habits, and general truths." android:textSize="13sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Start Lesson"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#1976D2"
+                            app:cornerRadius="12dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:cardBackgroundColor="#FFF9C4"
+                            app:cardCornerRadius="12dp"
+                            app:strokeWidth="0dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="A,An" android:textSize="14sp" android:textStyle="bold" android:textColor="#F57F17"/>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Articles (a, an, the)" android:textSize="18sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="16dp"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Master the rules of definite and indefinite articles." android:textSize="13sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Start Lesson"
+                            android:textColor="#2C3E50"
+                            android:backgroundTint="#F8F9FA"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="#EAEAEA"
+                            app:cornerRadius="12dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
