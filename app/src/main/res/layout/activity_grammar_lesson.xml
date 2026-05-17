@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+            <com.google.android.material.card.MaterialCardView android:id="@+id/btnBack" android:layout_width="40dp" android:layout_height="40dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="20dp" app:cardElevation="2dp" app:strokeWidth="0dp" android:clickable="true" android:focusable="true">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_revert" app:tint="#2C3E50"/>
+            </com.google.android.material.card.MaterialCardView>
+            <TextView android:id="@+id/tvGrammarTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_toEndOf="@id/btnBack" android:layout_marginStart="16dp" android:text="Simple Present Tense" android:textSize="20sp" android:textStyle="bold" android:textColor="#2C3E50"/>
+        </RelativeLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:cardBackgroundColor="#E8F5E9"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📖 Cấu trúc (Formula)" android:textSize="16sp" android:textStyle="bold" android:textColor="#2E7D32"/>
+                <TextView android:id="@+id/tvFormula" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="(+) S + V(s/es) + O\n(-) S + do/does + not + V\n(?) Do/Does + S + V?" android:textSize="18sp" android:textStyle="bold" android:textColor="#1B5E20" android:lineSpacingExtra="6dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💡 Cách sử dụng (Usage)" android:textSize="16sp" android:textStyle="bold" android:textColor="#F57F17"/>
+                <TextView android:id="@+id/tvUsage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Dùng để diễn tả một thói quen, một hành động lặp đi lặp lại hoặc một sự thật hiển nhiên." android:textSize="15sp" android:textColor="#34495E" android:lineSpacingExtra="4dp"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EAEAEA" android:layout_marginVertical="16dp"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📌 Ví dụ (Examples)" android:textSize="16sp" android:textStyle="bold" android:textColor="#1976D2"/>
+                <TextView android:id="@+id/tvExamples" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="1. I go to school every day.\n2. The sun rises in the east.\n3. She doesn't like apples." android:textSize="15sp" android:textStyle="italic" android:textColor="#2C3E50" android:lineSpacingExtra="8dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/btnPracticeNow"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            android:text="Practice Now"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1976D2"
+            app:cornerRadius="16dp"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

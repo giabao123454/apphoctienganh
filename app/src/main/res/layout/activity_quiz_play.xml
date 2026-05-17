@@ -69,10 +69,20 @@
         android:orientation="vertical"
         android:layout_marginTop="24dp">
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Question 5 of 10" android:textSize="14sp" android:textStyle="bold" android:textColor="#7F8C8D"/>
+
+            <TextView
+                android:id="@+id/tvQuestionCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question 1 of 10"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#7F8C8D"/>
+
             <TextView android:id="@+id/tvQuestionCategory" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="Grammar" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2"/>
         </RelativeLayout>
         <ProgressBar
+            android:id="@+id/pbQuizProgress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="8dp"
@@ -99,6 +109,7 @@
             android:padding="24dp">
 
             <ImageView
+                android:id="@+id/ivQuizIcon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@android:drawable/ic_btn_speak_now"

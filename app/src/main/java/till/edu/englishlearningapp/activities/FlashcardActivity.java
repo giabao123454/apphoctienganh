@@ -1,196 +1,171 @@
 package till.edu.englishlearningapp.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import till.edu.englishlearningapp.R;
-import till.edu.englishlearningapp.database.DatabaseHelper;
-import till.edu.englishlearningapp.models.Word;
 
 public class FlashcardActivity extends AppCompatActivity {
 
-    private TextView tvTopicTitle, tvEnglishWord, tvPhonetic, tvVietnameseMeaning, tvExample;
-    private ImageView btnBack, btnFav;
+    private TextView tvTopicName, tvProgressCount, tvWordContent, tvWordMeaning, tvWordExample;
     private MaterialCardView cardFlashcard;
-    private Button btnPrev, btnNext;
-    private FloatingActionButton btnSpeak;
+    private ProgressBar pbFlashcard;
+    private Button btnPrevious, btnNext, btnTakeQuiz;
 
-    private DatabaseHelper dbHelper;
-    private List<Word> wordList;
+    private List<String[]> wordList; // Mảng chứa [Word, Meaning, Example]
     private int currentIndex = 0;
     private boolean isShowingFront = true;
-    private TextToSpeech tts;
+    private String topicName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
 
-        // 1. UI Mapping
-        tvTopicTitle = findViewById(R.id.tvTopicTitle);
-        tvEnglishWord = findViewById(R.id.tvEnglishWord);
-        tvPhonetic = findViewById(R.id.tvPhonetic);
-        tvVietnameseMeaning = findViewById(R.id.tvVietnameseMeaning);
-        tvExample = findViewById(R.id.tvExample);
-        btnBack = findViewById(R.id.btnBack);
-        btnFav = findViewById(R.id.btnFav);
+        // Lấy tên Topic từ Fragment gửi qua
+        topicName = getIntent().getStringExtra("TOPIC_NAME");
+        if (topicName == null) topicName = "Vocabulary Topic";
+
+        // Ánh xạ
+        tvTopicName = findViewById(R.id.tvTopicName);
+        tvProgressCount = findViewById(R.id.tvProgressCount);
+        tvWordContent = findViewById(R.id.tvWordContent);
+        tvWordMeaning = findViewById(R.id.tvWordMeaning);
+        tvWordExample = findViewById(R.id.tvWordExample);
         cardFlashcard = findViewById(R.id.cardFlashcard);
-        btnPrev = findViewById(R.id.btnPrev);
+        pbFlashcard = findViewById(R.id.pbFlashcard);
+        btnPrevious = findViewById(R.id.btnPrevious);
         btnNext = findViewById(R.id.btnNext);
-        btnSpeak = findViewById(R.id.btnSpeak);
+        btnTakeQuiz = findViewById(R.id.btnTakeQuiz);
 
-        // 2. Intent Data
-        String topicId = getIntent().getStringExtra("TOPIC_ID");
-        String topicName = getIntent().getStringExtra("TOPIC_NAME");
-        if (topicName != null) tvTopicTitle.setText(topicName);
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+        tvTopicName.setText(topicName);
 
-        // 3. TTS Initialization
-        tts = new TextToSpeech(this, status -> {
-            if (status == TextToSpeech.SUCCESS) tts.setLanguage(Locale.US);
-        });
+        // Tạo danh sách từ vựng giả lập
+        generateDummyData();
+        updateUI();
 
-        // 4. SQLite Load
-        dbHelper = new DatabaseHelper(this);
-        loadWords(topicId);
-
-        // 5. Click Listeners
-        btnBack.setOnClickListener(v -> finish());
-
-        btnSpeak.setOnClickListener(v -> {
-            if (!wordList.isEmpty()) {
-                tts.speak(wordList.get(currentIndex).getEnglishWord(), TextToSpeech.QUEUE_FLUSH, null, null);
-            }
-        });
-
+        // Xử lý nút Next / Prev
         btnNext.setOnClickListener(v -> {
             if (currentIndex < wordList.size() - 1) {
                 currentIndex++;
-                showWordData();
-            } else {
-                Toast.makeText(this, "End of unit!", Toast.LENGTH_SHORT).show();
+                isShowingFront = true; // Chuyển từ mới thì luôn úp mặt sau lại
+                updateUI();
             }
         });
 
-        btnPrev.setOnClickListener(v -> {
+        btnPrevious.setOnClickListener(v -> {
             if (currentIndex > 0) {
                 currentIndex--;
-                showWordData();
+                isShowingFront = true;
+                updateUI();
             }
         });
 
-        btnFav.setOnClickListener(v -> toggleFavorite());
-
+        // Xử lý LẬT THẺ 3D
         cardFlashcard.setOnClickListener(v -> flipCard());
+
+        // Xử lý chuyển sang Quiz
+        btnTakeQuiz.setOnClickListener(v -> {
+            Intent intent = new Intent(FlashcardActivity.this, QuizPlayActivity.class);
+            intent.putExtra("QUIZ_TYPE", "Quiz: " + topicName);
+            startActivity(intent);
+            finish();
+        });
+
+        findViewById(R.id.imgSpeak).setOnClickListener(v -> Toast.makeText(this, "Đang phát âm: " + wordList.get(currentIndex)[0], Toast.LENGTH_SHORT).show());
     }
 
-    private void loadWords(String topicId) {
-        if (topicId == null) return;
-        
-        // Fetch from SQLite
-        android.database.sqlite.SQLiteDatabase db = dbHelper.getReadableDatabase();
-        android.database.Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_WORDS + " WHERE topicId = ?", new String[]{topicId});
-        
-        wordList = new ArrayList<>();
-        if (cursor.moveToFirst()) {
-            do {
-                Word word = new Word(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getInt(6) == 1
-                );
-                wordList.add(word);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
+    private void updateUI() {
+        String[] currentWord = wordList.get(currentIndex);
 
-        if (!wordList.isEmpty()) {
-            currentIndex = 0;
-            showWordData();
+        // Cập nhật nội dung hiển thị
+        tvWordContent.setText(currentWord[0]);
+        tvWordMeaning.setText(currentWord[1]);
+        tvWordExample.setText(currentWord[2]);
+
+        // Reset thẻ về mặt trước (chỉ hiện tiếng Anh)
+        cardFlashcard.setRotationY(0);
+        tvWordContent.setVisibility(View.VISIBLE);
+        tvWordMeaning.setVisibility(View.GONE);
+        tvWordExample.setVisibility(View.GONE);
+
+        // Cập nhật số đếm & thanh Progress
+        tvProgressCount.setText((currentIndex + 1) + " / " + wordList.size());
+        pbFlashcard.setProgress((int) (((float) (currentIndex + 1) / wordList.size()) * 100));
+
+        // Ẩn/Hiện nút bấm
+        btnPrevious.setEnabled(currentIndex > 0);
+
+        if (currentIndex == wordList.size() - 1) {
+            btnNext.setVisibility(View.GONE);
+            btnTakeQuiz.setVisibility(View.VISIBLE); // Hiện nút thi khi học xong
         } else {
-            tvEnglishWord.setText("No data");
-            tvPhonetic.setText("");
+            btnNext.setVisibility(View.VISIBLE);
+            btnTakeQuiz.setVisibility(View.GONE);
         }
     }
 
-    private void showWordData() {
-        if (wordList.isEmpty()) return;
-        Word currentWord = wordList.get(currentIndex);
-
-        isShowingFront = true;
-        cardFlashcard.setRotationY(0f);
-
-        tvEnglishWord.setText(currentWord.getEnglishWord());
-        tvPhonetic.setText(currentWord.getPhonetic());
-        tvVietnameseMeaning.setText(currentWord.getVietnameseMeaning());
-        tvExample.setText(currentWord.getExampleSentence());
-
-        updateFavIcon(currentWord.isFavorite());
-
-        tvEnglishWord.setVisibility(View.VISIBLE);
-        tvPhonetic.setVisibility(View.VISIBLE);
-        tvVietnameseMeaning.setVisibility(View.INVISIBLE);
-        tvExample.setVisibility(View.INVISIBLE);
-    }
-
-    private void toggleFavorite() {
-        if (wordList.isEmpty()) return;
-        Word currentWord = wordList.get(currentIndex);
-        boolean newStatus = !currentWord.isFavorite();
-        currentWord.setFavorite(newStatus);
-        
-        android.database.sqlite.SQLiteDatabase db = dbHelper.getWritableDatabase();
-        android.content.ContentValues values = new android.content.ContentValues();
-        values.put("isFavorite", newStatus ? 1 : 0);
-        db.update(DatabaseHelper.TABLE_WORDS, values, "id = ?", new String[]{String.valueOf(currentWord.getId())});
-        
-        updateFavIcon(newStatus);
-        Toast.makeText(this, newStatus ? "Added to favorites" : "Removed from favorites", Toast.LENGTH_SHORT).show();
-    }
-
-    private void updateFavIcon(boolean isFav) {
-        btnFav.setImageResource(isFav ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
-    }
-
+    // Hiệu ứng lật 3D
     private void flipCard() {
-        cardFlashcard.animate().rotationY(90f).setDuration(150).withEndAction(() -> {
-            isShowingFront = !isShowingFront;
-            if (isShowingFront) {
-                tvEnglishWord.setVisibility(View.VISIBLE);
-                tvPhonetic.setVisibility(View.VISIBLE);
-                tvVietnameseMeaning.setVisibility(View.INVISIBLE);
-                tvExample.setVisibility(View.INVISIBLE);
-            } else {
-                tvEnglishWord.setVisibility(View.INVISIBLE);
-                tvPhonetic.setVisibility(View.INVISIBLE);
-                tvVietnameseMeaning.setVisibility(View.VISIBLE);
-                tvExample.setVisibility(View.VISIBLE);
+        // Tăng chiều sâu của camera để thẻ lật không bị cắt góc
+        float scale = getResources().getDisplayMetrics().density;
+        cardFlashcard.setCameraDistance(8000 * scale);
+
+        ObjectAnimator flipOut = ObjectAnimator.ofFloat(cardFlashcard, "rotationY", isShowingFront ? 0f : 180f, 90f);
+        flipOut.setDuration(150);
+        flipOut.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        ObjectAnimator flipIn = ObjectAnimator.ofFloat(cardFlashcard, "rotationY", -90f, 0f);
+        flipIn.setDuration(150);
+        flipIn.setInterpolator(new DecelerateInterpolator());
+
+        flipOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isShowingFront = !isShowingFront;
+                if (isShowingFront) {
+                    tvWordMeaning.setVisibility(View.GONE);
+                    tvWordExample.setVisibility(View.GONE);
+                } else {
+                    tvWordMeaning.setVisibility(View.VISIBLE);
+                    tvWordExample.setVisibility(View.VISIBLE);
+                }
+                flipIn.start();
             }
-            cardFlashcard.setRotationY(-90f);
-            cardFlashcard.animate().rotationY(0f).setDuration(150).start();
-        }).start();
+        });
+        flipOut.start();
     }
 
-    @Override
-    protected void onDestroy() {
-        if (tts != null) { tts.stop(); tts.shutdown(); }
-        super.onDestroy();
+    private void generateDummyData() {
+        wordList = new ArrayList<>();
+        if (topicName.contains("Animals")) {
+            wordList.add(new String[]{"Dog", "Con chó (Noun)", "Eg: The dog is barking."});
+            wordList.add(new String[]{"Cat", "Con mèo (Noun)", "Eg: The cat is sleeping."});
+            wordList.add(new String[]{"Bird", "Con chim (Noun)", "Eg: The bird is flying in the sky."});
+        } else if (topicName.contains("Food")) {
+            wordList.add(new String[]{"Apple", "Quả táo (Noun)", "Eg: An apple a day keeps the doctor away."});
+            wordList.add(new String[]{"Bread", "Bánh mì (Noun)", "Eg: I eat bread for breakfast."});
+        } else {
+            wordList.add(new String[]{"Hello", "Xin chào", "Eg: Hello, how are you?"});
+            wordList.add(new String[]{"World", "Thế giới", "Eg: The world is beautiful."});
+        }
     }
 }

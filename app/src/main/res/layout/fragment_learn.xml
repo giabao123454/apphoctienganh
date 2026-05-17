@@ -47,6 +47,7 @@
                     app:tint="#95A5A6"/>
 
                 <EditText
+                    android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
@@ -54,7 +55,9 @@
                     android:hint="Search grammar, vocab..."
                     android:textSize="15sp"
                     android:textColor="#2C3E50"
-                    android:textColorHint="#95A5A6"/>
+                    android:textColorHint="#95A5A6"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -72,17 +75,19 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tabBeginner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Beginner"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50"
+                    android:textColor="#FFFFFF"
                     android:background="@drawable/bg_chip_active"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp"/>
 
                 <TextView
+                    android:id="@+id/tabIntermediate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Intermediate"
@@ -95,6 +100,7 @@
                     android:layout_marginStart="12dp"/>
 
                 <TextView
+                    android:id="@+id/tabAdvanced"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Advanced"
@@ -122,6 +128,7 @@
                 android:weightSum="2">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardLearnVocab"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="1"
@@ -129,7 +136,9 @@
                     app:cardBackgroundColor="#1976D2"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
                     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
                         <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_menu_sort_alphabetically" app:tint="#FFFFFF"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Vocabulary" android:textSize="16sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
@@ -137,6 +146,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardLearnGrammar"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="1"
@@ -144,11 +154,13 @@
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
                     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
                         <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_menu_edit" app:tint="#1976D2"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Grammar" android:textSize="16sp" android:textStyle="bold" android:textColor="#2C3E50"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" android:text="60%" android:textSize="12sp" android:textStyle="bold" android:textColor="#4CAF50"/>
+                        <TextView android:id="@+id/tvGrammarProgress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" android:text="0%" android:textSize="12sp" android:textStyle="bold" android:textColor="#4CAF50"/>
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -160,6 +172,7 @@
                 android:weightSum="2">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardLearnListening"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="1"
@@ -167,14 +180,22 @@
                     app:cardBackgroundColor="#FFF3E0"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
                     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
                         <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_lock_silent_mode_off" app:tint="#FF9800"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Listening" android:textSize="16sp" android:textStyle="bold" android:textColor="#E65100"/>
+
+                        <TextView android:id="@+id/tvListeningTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Listening" android:textSize="16sp" android:textStyle="bold" android:textColor="#E65100"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_above="@id/tvListeningTitle" android:text="Audio &amp; Dialogs" android:textSize="11sp" android:textColor="#FFB74D" android:layout_marginBottom="2dp"/>
+
+                        <TextView android:id="@+id/tvListenProgress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" android:text="45%" android:textSize="12sp" android:textStyle="bold" android:textColor="#FF9800"/>
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardLearnSpeaking"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="1"
@@ -182,10 +203,17 @@
                     app:cardBackgroundColor="#F3E5F5"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true">
                     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
                         <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_btn_speak_now" app:tint="#9C27B0"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Speaking" android:textSize="16sp" android:textStyle="bold" android:textColor="#4A148C"/>
+
+                        <TextView android:id="@+id/tvSpeakingTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="Speaking" android:textSize="16sp" android:textStyle="bold" android:textColor="#4A148C"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_above="@id/tvSpeakingTitle" android:text="AI Practice" android:textSize="11sp" android:textColor="#BA68C8" android:layout_marginBottom="2dp"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" android:text="New" android:textSize="12sp" android:textStyle="bold" android:textColor="#E040FB"/>
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -258,6 +286,7 @@
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Learn about facts, habits, and general truths." android:textSize="13sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
 
                         <Button
+                            android:id="@+id/btnStartTense1"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="20dp"
@@ -296,6 +325,7 @@
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Master the rules of definite and indefinite articles." android:textSize="13sp" android:textColor="#7F8C8D" android:layout_marginTop="4dp"/>
 
                         <Button
+                            android:id="@+id/btnStartArticles"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="20dp"

@@ -1,172 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_light_gray">
+    android:orientation="vertical"
+    android:background="#F0F4F8"
+    android:padding="20dp">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_light_gray"
-        app:elevation="0dp">
+        android:layout_marginTop="10dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_revert" app:tint="#2C3E50"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tvTopicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Animals &amp; Pets"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#2C3E50"/>
+
+        <TextView
+            android:id="@+id/tvProgressCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="1 / 10"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#1976D2"/>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pbFlashcard"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="20dp"
+        android:progress="10"
+        android:progressTint="#1976D2"
+        android:backgroundTint="#E0E0E0"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardFlashcard"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="40dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="8dp"
+        app:strokeWidth="0dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="16dp"
-            app:contentInsetEnd="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
 
             <ImageView
-                android:id="@+id/btnBack"
+                android:id="@+id/imgSpeak"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_revert"
-                app:tint="@color/text_dark" />
+                android:src="@android:drawable/ic_lock_silent_mode_off"
+                app:tint="#FF9800"
+                android:layout_marginBottom="24dp"/>
 
             <TextView
-                android:id="@+id/tvTopicTitle"
+                android:id="@+id/tvWordContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Topic Name"
-                android:textColor="@color/text_dark"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-black" />
+                android:text="Dog"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="#2C3E50"
+                android:textAlignment="center"/>
 
-            <ImageView
-                android:id="@+id/btnFav"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/btn_star_big_off"
-                app:tint="@color/accent_orange" />
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+            <TextView
+                android:id="@+id/tvWordMeaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Con chó (Noun)"
+                android:textSize="22sp"
+                android:textColor="#4CAF50"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"/> <TextView
+            android:id="@+id/tvWordExample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eg: The dog is barking loudly."
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="#7F8C8D"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:visibility="gone"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tap card to flip"
+        android:textAlignment="center"
+        android:textColor="#95A5A6"
+        android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:weightSum="2">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardFlashcard"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="4dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/divider">
+            android:text="Previous"
+            android:textColor="#2C3E50"
+            android:backgroundTint="#FFFFFF"
+            app:cornerRadius="16dp"
+            android:layout_marginEnd="10dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="32dp">
-
-                <TextView
-                    android:id="@+id/tvEnglishWord"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vocabulary"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/tvPhonetic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="/vəˈkæbjʊləri/"
-                    android:textColor="@color/text_gray"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="2dp"
-                    android:layout_marginVertical="32dp"
-                    android:background="@color/divider" />
-
-                <TextView
-                    android:id="@+id/tvVietnameseMeaning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Từ vựng"
-                    android:textColor="@color/text_dark"
-                    android:textSize="24sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/tvExample"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="I learn new vocabulary every day."
-                    android:textColor="@color/text_gray"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPrev"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_alignParentStart="true"
-                android:text="Back"
-                app:cornerRadius="16dp" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSpeak"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@android:drawable/ic_lock_silent_mode_off"
-                app:backgroundTint="@color/primary_blue"
-                app:tint="@color/white"
-                app:elevation="4dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNext"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_alignParentEnd="true"
-                android:text="Next"
-                app:cornerRadius="16dp"
-                android:backgroundTint="@color/primary_blue" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="Tap card to flip"
-            android:textColor="@color/text_light"
-            android:textSize="12sp" />
-
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="Next"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1976D2"
+            app:cornerRadius="16dp"
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/btnTakeQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:text="Take Quiz Now"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#4CAF50"
+        app:cornerRadius="16dp"
+        android:visibility="gone"/> </LinearLayout>

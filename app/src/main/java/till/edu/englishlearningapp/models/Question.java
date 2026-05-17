@@ -2,20 +2,16 @@ package till.edu.englishlearningapp.models;
 
 public class Question {
     private int id;
-    private String topicId;
-    private String content;
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
-    private String correctAnswer;
+    private String category; // Có thể database của ông lưu Thể loại ở cột 1
+    private String questionText;
+    private String optionA, optionB, optionC, optionD;
+    private String correctAnswer; // Database trả về String (cột 7)
 
-    public Question() {}
-
-    public Question(int id, String topicId, String content, String optionA, String optionB, String optionC, String optionD, String correctAnswer) {
+    // Constructor mới mở đủ 8 "lỗ cắm" để nhận đúng dữ liệu từ cursor của ông
+    public Question(int id, String category, String questionText, String optionA, String optionB, String optionC, String optionD, String correctAnswer) {
         this.id = id;
-        this.topicId = topicId;
-        this.content = content;
+        this.category = category;
+        this.questionText = questionText;
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;
@@ -23,27 +19,42 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
+    // Các hàm Getters cơ bản
     public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getTopicId() { return topicId; }
-    public void setTopicId(String topicId) { this.topicId = topicId; }
-
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
-
+    public String getCategory() { return category; }
+    public String getQuestionText() { return questionText; }
     public String getOptionA() { return optionA; }
-    public void setOptionA(String optionA) { this.optionA = optionA; }
-
     public String getOptionB() { return optionB; }
-    public void setOptionB(String optionB) { this.optionB = optionB; }
-
     public String getOptionC() { return optionC; }
-    public void setOptionC(String optionC) { this.optionC = optionC; }
-
     public String getOptionD() { return optionD; }
-    public void setOptionD(String optionD) { this.optionD = optionD; }
 
-    public String getCorrectAnswer() { return correctAnswer; }
-    public void setCorrectAnswer(String correctAnswer) { this.correctAnswer = correctAnswer; }
+    // 🔥 HÀM MA THUẬT: Tự động dịch đáp án từ DB (String) sang vị trí nút (int) cho QuizPlayActivity
+    public int getCorrectAnswerIndex() {
+        if (correctAnswer == null) return 1; // Mặc định tránh crash
+
+        // Trường hợp 1: DB của ông lưu là "1", "2", "3", "4"
+        if (correctAnswer.equals("1")) return 1;
+        if (correctAnswer.equals("2")) return 2;
+        if (correctAnswer.equals("3")) return 3;
+        if (correctAnswer.equals("4")) return 4;
+
+        // Trường hợp 2: DB của ông lưu là "A", "B", "C", "D"
+        if (correctAnswer.equalsIgnoreCase("A")) return 1;
+        if (correctAnswer.equalsIgnoreCase("B")) return 2;
+        if (correctAnswer.equalsIgnoreCase("C")) return 3;
+        if (correctAnswer.equalsIgnoreCase("D")) return 4;
+
+        // Trường hợp 3: DB của ông lưu chính xác chữ của đáp án (VD: "Went")
+        if (correctAnswer.equalsIgnoreCase(optionA)) return 1;
+        if (correctAnswer.equalsIgnoreCase(optionB)) return 2;
+        if (correctAnswer.equalsIgnoreCase(optionC)) return 3;
+        if (correctAnswer.equalsIgnoreCase(optionD)) return 4;
+
+        // Nếu ép kiểu trực tiếp được thì ép
+        try {
+            return Integer.parseInt(correctAnswer);
+        } catch (NumberFormatException e) {
+            return 1; // Mặc định nếu có lỗi data
+        }
+    }
 }

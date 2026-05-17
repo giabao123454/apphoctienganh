@@ -3,8 +3,11 @@ package till.edu.englishlearningapp.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +20,13 @@ import till.edu.englishlearningapp.activities.QuizPlayActivity;
 
 public class QuizFragment extends Fragment {
 
-    public QuizFragment() {
-        // Constructor rỗng
-    }
+    private TextView tabBeginner, tabIntermediate, tabAdvanced;
+    private MaterialCardView cardVocab, cardGrammar, cardListening, cardSpeaking, cardReading, cardMixed;
+
+    // Biến lưu độ khó hiện tại
+    private String currentDifficulty = "Beginner";
+
+    public QuizFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,26 +37,89 @@ public class QuizFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Ánh xạ 6 thẻ Quiz
-        MaterialCardView cardVocab = view.findViewById(R.id.cardVocabQuiz);
-        MaterialCardView cardGrammar = view.findViewById(R.id.cardGrammarQuiz);
-        MaterialCardView cardListening = view.findViewById(R.id.cardListeningQuiz);
-        MaterialCardView cardSpeaking = view.findViewById(R.id.cardSpeakingQuiz);
-        MaterialCardView cardReading = view.findViewById(R.id.cardReadingQuiz);
-        MaterialCardView cardMixed = view.findViewById(R.id.cardMixedQuiz);
+        // 1. Ánh xạ ID (Nhớ check lại ID trong file XML cho khớp nha)
+        tabBeginner = view.findViewById(R.id.tabBeginner);
+        tabIntermediate = view.findViewById(R.id.tabIntermediate);
+        tabAdvanced = view.findViewById(R.id.tabAdvanced);
 
-        // Gắn chung 1 hàm chuyển trang, chỉ thay đổi tham số truyền đi
-        cardVocab.setOnClickListener(v -> openQuizPlay("Vocabulary"));
-        cardGrammar.setOnClickListener(v -> openQuizPlay("Grammar"));
-        cardListening.setOnClickListener(v -> openQuizPlay("Listening"));
-        cardSpeaking.setOnClickListener(v -> openQuizPlay("Speaking"));
-        cardReading.setOnClickListener(v -> openQuizPlay("Reading"));
-        cardMixed.setOnClickListener(v -> openQuizPlay("Mixed Challenge"));
+        cardVocab = view.findViewById(R.id.cardQuizVocab);
+        cardGrammar = view.findViewById(R.id.cardQuizGrammar);
+        cardListening = view.findViewById(R.id.cardQuizListening);
+        cardSpeaking = view.findViewById(R.id.cardQuizSpeaking);
+
+        // Nãy tui thấy hình ông có thêm Reading với Mixed
+        cardReading = view.findViewById(R.id.cardQuizReading);
+        cardMixed = view.findViewById(R.id.cardQuizMixed);
+
+        // 2. Thiết lập Tab mặc định là Beginner
+        updateTabSelection(tabBeginner, "Beginner");
+
+        // 3. Bắt sự kiện Click chuyển đổi Tab
+        tabBeginner.setOnClickListener(v -> updateTabSelection(tabBeginner, "Beginner"));
+        tabIntermediate.setOnClickListener(v -> updateTabSelection(tabIntermediate, "Intermediate"));
+        tabAdvanced.setOnClickListener(v -> updateTabSelection(tabAdvanced, "Advanced"));
+
+        // 4. Gắn hiệu ứng nhún cho mấy cái thẻ
+        setClickAnimation(cardVocab);
+        setClickAnimation(cardGrammar);
+        setClickAnimation(cardListening);
+        setClickAnimation(cardSpeaking);
+        if(cardReading != null) setClickAnimation(cardReading);
+        if(cardMixed != null) setClickAnimation(cardMixed);
+
+        // 5. Bắt sự kiện Click vào Thẻ -> Mở Đấu trường và truyền loại đề
+        cardVocab.setOnClickListener(v -> startQuiz("Vocabulary"));
+        cardGrammar.setOnClickListener(v -> startQuiz("Grammar"));
+        cardListening.setOnClickListener(v -> startQuiz("Listening"));
+        cardSpeaking.setOnClickListener(v -> startQuiz("Speaking"));
+        if(cardReading != null) cardReading.setOnClickListener(v -> startQuiz("Reading"));
+        if(cardMixed != null) cardMixed.setOnClickListener(v -> startQuiz("Mixed Quiz"));
     }
 
-    private void openQuizPlay(String quizType) {
+    // Hàm đổi màu sắc Tab
+    private void updateTabSelection(TextView selectedTab, String difficulty) {
+        currentDifficulty = difficulty; // Cập nhật biến độ khó
+
+        // Đưa tất cả về trạng thái chưa chọn (Nền trắng, viền xám, chữ đen)
+        tabBeginner.setBackgroundResource(R.drawable.bg_chip_inactive);
+        tabBeginner.setTextColor(getResources().getColor(android.R.color.black));
+
+        tabIntermediate.setBackgroundResource(R.drawable.bg_chip_inactive);
+        tabIntermediate.setTextColor(getResources().getColor(android.R.color.black));
+
+        tabAdvanced.setBackgroundResource(R.drawable.bg_chip_inactive);
+        tabAdvanced.setTextColor(getResources().getColor(android.R.color.black));
+
+        // Nổi bật Tab đang chọn lên (Nền xanh, chữ trắng)
+        selectedTab.setBackgroundResource(R.drawable.bg_chip_active);
+        selectedTab.setTextColor(getResources().getColor(android.R.color.white));
+    }
+
+    // Hàm mở Đấu trường QuizPlayActivity
+    private void startQuiz(String category) {
         Intent intent = new Intent(getActivity(), QuizPlayActivity.class);
-        intent.putExtra("QUIZ_TYPE", quizType); // Truyền loại bài test sang màn hình chơi
+
+        // GHÉP ĐỘ KHÓ VÀO THỂ LOẠI (VD: "Intermediate Listening")
+        intent.putExtra("QUIZ_TYPE", currentDifficulty + " " + category);
+
+        Toast.makeText(getContext(), "Đang mở: " + currentDifficulty + " " + category, Toast.LENGTH_SHORT).show();
         startActivity(intent);
+    }
+
+    // Hiệu ứng "nhún" mượt mà
+    private void setClickAnimation(View view) {
+        if (view == null) return;
+        view.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    v.animate().scaleX(0.95f).scaleY(0.95f).setDuration(100).start();
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+                    break;
+            }
+            return false;
+        });
     }
 }

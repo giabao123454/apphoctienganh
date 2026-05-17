@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#F0F4F8"
+    android:padding="24dp">
+
+    <ImageView android:layout_width="100dp" android:layout_height="100dp" android:src="@android:drawable/star_on" app:tint="#FFC107"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Quiz Completed!" android:textSize="28sp" android:textStyle="bold" android:textColor="#2C3E50" android:layout_marginTop="16dp"/>
+
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardBackgroundColor="#FFFFFF" app:cardCornerRadius="20dp" app:cardElevation="4dp" app:strokeWidth="0dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:gravity="center">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Your Score" android:textSize="16sp" android:textColor="#7F8C8D"/>
+            <TextView android:id="@+id/tvFinalScore" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3 / 5" android:textSize="36sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="8dp"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EAEAEA" android:layout_marginVertical="16dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="XP Earned" android:textSize="16sp" android:textColor="#7F8C8D"/>
+            <TextView android:id="@+id/tvFinalXP" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+30 XP" android:textSize="24sp" android:textStyle="bold" android:textColor="#4CAF50" android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button android:id="@+id/btnBackHome" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="40dp" android:text="Back to Home" android:textColor="#FFFFFF" android:backgroundTint="#1976D2" app:cornerRadius="16dp"/>
+</LinearLayout>
