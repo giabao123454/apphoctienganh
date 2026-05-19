@@ -12,18 +12,23 @@ public class QuizResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_result);
 
+        // 1. Nhận dữ liệu điểm số từ QuizPlayActivity gửi sang
         int score = getIntent().getIntExtra("SCORE", 0);
         int total = getIntent().getIntExtra("TOTAL", 0);
         int xp = getIntent().getIntExtra("XP", 0);
 
+        // 2. Ánh xạ giao diện
         TextView tvFinalScore = findViewById(R.id.tvFinalScore);
         TextView tvFinalXP = findViewById(R.id.tvFinalXP);
+        Button btnBackHome = findViewById(R.id.btnBackHome);
 
+        // 3. Hiển thị dữ liệu lên màn hình
         tvFinalScore.setText(score + " / " + total);
         tvFinalXP.setText("+" + xp + " XP");
 
-        // Ở đây mốt nhóm ông viết lệnh update Firebase cộng XP cho User nha
+        // [Tương lai] Ở đây nhóm ông có thể gọi Firebase để cộng thẳng XP này vào tài khoản User
 
-        findViewById(R.id.btnBackHome).setOnClickListener(v -> finish());
+        // 4. Bấm nút thì đóng trang Kết quả, quay về màn hình trước đó
+        btnBackHome.setOnClickListener(v -> finish());
     }
 }

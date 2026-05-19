@@ -71,24 +71,89 @@ public class QuizPlayActivity extends AppCompatActivity {
         findViewById(R.id.btnSkip).setOnClickListener(v -> moveToNextQuestion());
     }
 
-    // ĐÃ SỬA: Cập nhật hàm này để dùng Constructor 8 tham số của Question
+    // ĐÃ CẬP NHẬT: Ma trận câu hỏi 6 môn x 3 cấp độ
     private void generateQuestions(String type) {
         questionList = new ArrayList<>();
 
-        // Cấu trúc 8 tham số: id, category, question, optA, optB, optC, optD, correctAns
-        if (type.contains("Listening")) {
+        // Nhận diện cấp độ khó
+        boolean isBeginner = type.contains("Beginner");
+        boolean isIntermediate = type.contains("Intermediate");
+        boolean isAdvanced = type.contains("Advanced");
+
+        // Nhận diện môn học và nạp đạn (câu hỏi)
+        if (type.contains("Reading")) {
+            ivQuizIcon.setImageResource(android.R.drawable.ic_menu_agenda); // Icon cuốn sách/sổ
+            if (isBeginner) {
+                questionList.add(new Question(1, type, "Read the sign: 'NO ENTRY'. What does it mean?", "A. Come in", "B. Do not go in", "C. Exit here", "D. Push the door", "2"));
+                questionList.add(new Question(2, type, "Read: 'The sky is blue'. What color is the sky?", "A. Red", "B. Green", "C. Blue", "D. Yellow", "3"));
+            } else if (isIntermediate) {
+                questionList.add(new Question(3, type, "Read: 'The flight was delayed due to bad weather'. Why?", "A. No pilot", "B. Broken plane", "C. Bad weather", "D. Lost luggage", "3"));
+                questionList.add(new Question(4, type, "Synonym of 'Essential' in the text is:", "A. Unnecessary", "B. Crucial", "C. Optional", "D. Trivial", "2"));
+            } else { // Advanced
+                questionList.add(new Question(5, type, "What can be inferred from the author's cynical tone?", "A. He is hopeful", "B. He strongly doubts the outcome", "C. He is extremely angry", "D. He is indifferent", "2"));
+                questionList.add(new Question(6, type, "The word 'ubiquitous' in paragraph 2 means:", "A. Rare", "B. Expensive", "C. Found everywhere", "D. Hidden", "3"));
+            }
+        }
+        else if (type.contains("Speaking")) {
+            ivQuizIcon.setImageResource(android.R.drawable.ic_btn_speak_now); // Icon Micro
+            if (isBeginner) {
+                questionList.add(new Question(7, type, "Choose the correct polite response to 'How are you?'", "A. I am 10 years old", "B. I am fine, thank you", "C. My name is John", "D. I live in Vietnam", "2"));
+                questionList.add(new Question(8, type, "How do you pronounce the 'th' in 'Think'?", "A. /t/", "B. /d/", "C. /θ/", "D. /ð/", "3"));
+            } else if (isIntermediate) {
+                questionList.add(new Question(9, type, "Which word has a different stress pattern?", "A. HO-tel", "B. WA-ter", "C. PA-per", "D. MU-sic", "1"));
+                questionList.add(new Question(10, type, "Respond to: 'Would you mind if I opened the window?'", "A. Yes, please do.", "B. No, not at all.", "C. Yes, I am.", "D. No, I mind.", "2"));
+            } else { // Advanced
+                questionList.add(new Question(11, type, "Which phrase is used to politely disagree in a debate?", "A. You are completely wrong.", "B. I see your point, but...", "C. Shut up.", "D. That's a stupid idea.", "2"));
+                questionList.add(new Question(12, type, "What does 'Hit the nail on the head' mean in speech?", "A. To be exactly right", "B. To build a house", "C. To get angry", "D. To have a headache", "1"));
+            }
+        }
+        else if (type.contains("Mixed")) {
+            ivQuizIcon.setImageResource(android.R.drawable.ic_menu_compass); // Icon la bàn (Trộn lẫn)
+            if (isBeginner) {
+                questionList.add(new Question(13, type, "[Vocab] The opposite of 'Hot' is:", "A. Warm", "B. Cold", "C. Cool", "D. Freezing", "2"));
+                questionList.add(new Question(14, type, "[Grammar] I ___ an apple every day.", "A. eat", "B. eats", "C. eating", "D. ate", "1"));
+            } else if (isIntermediate) {
+                questionList.add(new Question(15, type, "[Reading] Read: 'He was exhausted'. He was...", "A. Very happy", "B. Very hungry", "C. Very tired", "D. Very angry", "3"));
+                questionList.add(new Question(16, type, "[Grammar] If I ___ you, I wouldn't do that.", "A. am", "B. was", "C. were", "D. have been", "3"));
+            } else { // Advanced
+                questionList.add(new Question(17, type, "[Reading] The protagonist's dilemma illustrates...", "A. Moral ambiguity", "B. Pure joy", "C. A simple choice", "D. Ignorance", "1"));
+                questionList.add(new Question(18, type, "[Vocab] Choose the synonym for 'Ephemeral':", "A. Permanent", "B. Fleeting", "C. Bright", "D. Heavy", "2"));
+            }
+        }
+        else if (type.contains("Listening")) {
             ivQuizIcon.setImageResource(android.R.drawable.ic_lock_silent_mode_off);
-            questionList.add(new Question(1, type, "Listen to the audio. Where is the man going?", "A. Airport", "B. Hospital", "C. School", "D. Hotel", "1"));
-            questionList.add(new Question(2, type, "What did she order?", "A. Coffee", "B. Tea", "C. Water", "D. Milk", "2"));
-        } else if (type.contains("Vocabulary")) {
+            if (isBeginner) {
+                questionList.add(new Question(19, type, "Listen: 'Hello, my name is Sarah.' What is her name?", "A. Susan", "B. Sarah", "C. Sally", "D. Samantha", "2"));
+            } else if (isIntermediate) {
+                questionList.add(new Question(20, type, "Listen to the airport announcement. Where is flight 204 going?", "A. London", "B. Paris", "C. Tokyo", "D. New York", "1"));
+            } else {
+                questionList.add(new Question(21, type, "Listen to the TED Talk excerpt. What is the main thesis?", "A. Technology isolates us.", "B. AI will replace jobs.", "C. Human connection is vital.", "D. Climate change is a myth.", "3"));
+            }
+        }
+        else if (type.contains("Vocabulary")) {
             ivQuizIcon.setImageResource(android.R.drawable.ic_menu_sort_alphabetically);
-            questionList.add(new Question(3, type, "Which word means 'very big'?", "A. Tiny", "B. Enormous", "C. Small", "D. Short", "2"));
-            questionList.add(new Question(4, type, "Synonym of 'Happy' is?", "A. Sad", "B. Angry", "C. Joyful", "D. Bored", "3"));
-        } else { // Grammar & Khác
+            if (isBeginner) {
+                questionList.add(new Question(22, type, "Which animal says 'Meow'?", "A. Dog", "B. Cat", "C. Cow", "D. Pig", "2"));
+            } else if (isIntermediate) {
+                questionList.add(new Question(23, type, "A place where you borrow books is a:", "A. Bookstore", "B. Museum", "C. Library", "D. Supermarket", "3"));
+            } else {
+                questionList.add(new Question(24, type, "What is a 'Philanthropist'?", "A. Stamp collector", "B. Generous donator", "C. Ancient philosopher", "D. Type of doctor", "2"));
+            }
+        }
+        else { // Mặc định là Grammar
             ivQuizIcon.setImageResource(android.R.drawable.ic_menu_edit);
-            questionList.add(new Question(5, type, "Which is the past tense of 'Go'?", "A. Goes", "B. Went", "C. Gone", "D. Going", "2"));
-            questionList.add(new Question(6, type, "I ___ a student.", "A. am", "B. is", "C. are", "D. be", "1"));
-            questionList.add(new Question(7, type, "She ___ play tennis yesterday.", "A. doesn't", "B. wasn't", "C. didn't", "D. hasn't", "3"));
+            if (isBeginner) {
+                questionList.add(new Question(25, type, "She ___ a student.", "A. am", "B. is", "C. are", "D. be", "2"));
+            } else if (isIntermediate) {
+                questionList.add(new Question(26, type, "I have been living here ___ 2010.", "A. since", "B. for", "C. in", "D. at", "1"));
+            } else {
+                questionList.add(new Question(27, type, "Scarcely ___ the room when the phone rang.", "A. he had entered", "B. had he entered", "C. he entered", "D. entered he", "2"));
+            }
+        }
+
+        // Nếu lỡ không có câu hỏi nào thì nhét 1 câu chống cháy để không bị văng app
+        if (questionList.isEmpty()) {
+            questionList.add(new Question(99, type, "Chưa có dữ liệu cho phần này!", "A. Test 1", "B. Test 2", "C. Test 3", "D. Test 4", "1"));
         }
     }
 

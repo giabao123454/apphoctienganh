@@ -13,9 +13,16 @@
         android:theme="@style/Theme.EnglishLearningApp">
 
         <activity
-            android:name=".activities.GrammarLessonActivity"
+            android:name=".activities.LeaderboardActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activities.QuizResultActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.GrammarLessonActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.FlashcardActivity"
             android:exported="false" />

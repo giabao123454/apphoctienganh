@@ -17,11 +17,13 @@ import com.google.android.material.card.MaterialCardView;
 
 import till.edu.englishlearningapp.R;
 import till.edu.englishlearningapp.activities.QuizPlayActivity;
+import till.edu.englishlearningapp.activities.LeaderboardActivity; // Import trang Bảng xếp hạng
 
 public class QuizFragment extends Fragment {
 
     private TextView tabBeginner, tabIntermediate, tabAdvanced;
-    private MaterialCardView cardVocab, cardGrammar, cardListening, cardSpeaking, cardReading, cardMixed;
+    // Khai báo thêm cardLeaderboard ở đây
+    private MaterialCardView cardVocab, cardGrammar, cardListening, cardSpeaking, cardReading, cardMixed, cardLeaderboard;
 
     // Biến lưu độ khó hiện tại
     private String currentDifficulty = "Beginner";
@@ -37,7 +39,7 @@ public class QuizFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 1. Ánh xạ ID (Nhớ check lại ID trong file XML cho khớp nha)
+        // 1. Ánh xạ ID
         tabBeginner = view.findViewById(R.id.tabBeginner);
         tabIntermediate = view.findViewById(R.id.tabIntermediate);
         tabAdvanced = view.findViewById(R.id.tabAdvanced);
@@ -46,10 +48,11 @@ public class QuizFragment extends Fragment {
         cardGrammar = view.findViewById(R.id.cardQuizGrammar);
         cardListening = view.findViewById(R.id.cardQuizListening);
         cardSpeaking = view.findViewById(R.id.cardQuizSpeaking);
-
-        // Nãy tui thấy hình ông có thêm Reading với Mixed
         cardReading = view.findViewById(R.id.cardQuizReading);
         cardMixed = view.findViewById(R.id.cardQuizMixed);
+
+        // Ánh xạ ID cho bảng xếp hạng
+        cardLeaderboard = view.findViewById(R.id.cardLeaderboard);
 
         // 2. Thiết lập Tab mặc định là Beginner
         updateTabSelection(tabBeginner, "Beginner");
@@ -59,28 +62,35 @@ public class QuizFragment extends Fragment {
         tabIntermediate.setOnClickListener(v -> updateTabSelection(tabIntermediate, "Intermediate"));
         tabAdvanced.setOnClickListener(v -> updateTabSelection(tabAdvanced, "Advanced"));
 
-        // 4. Gắn hiệu ứng nhún cho mấy cái thẻ
+        // 4. Gắn hiệu ứng nhún cho các thẻ
         setClickAnimation(cardVocab);
         setClickAnimation(cardGrammar);
         setClickAnimation(cardListening);
         setClickAnimation(cardSpeaking);
         if(cardReading != null) setClickAnimation(cardReading);
         if(cardMixed != null) setClickAnimation(cardMixed);
+        if(cardLeaderboard != null) setClickAnimation(cardLeaderboard); // Hiệu ứng nhún cho Bảng Xếp Hạng
 
-        // 5. Bắt sự kiện Click vào Thẻ -> Mở Đấu trường và truyền loại đề
+        // 5. Bắt sự kiện Click vào Thẻ Quiz
         cardVocab.setOnClickListener(v -> startQuiz("Vocabulary"));
         cardGrammar.setOnClickListener(v -> startQuiz("Grammar"));
         cardListening.setOnClickListener(v -> startQuiz("Listening"));
         cardSpeaking.setOnClickListener(v -> startQuiz("Speaking"));
         if(cardReading != null) cardReading.setOnClickListener(v -> startQuiz("Reading"));
         if(cardMixed != null) cardMixed.setOnClickListener(v -> startQuiz("Mixed Quiz"));
+
+        // 6. SỰ KIỆN CLICK MỞ BẢNG XẾP HẠNG
+        if(cardLeaderboard != null) {
+            cardLeaderboard.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), LeaderboardActivity.class);
+                startActivity(intent);
+            });
+        }
     }
 
-    // Hàm đổi màu sắc Tab
     private void updateTabSelection(TextView selectedTab, String difficulty) {
-        currentDifficulty = difficulty; // Cập nhật biến độ khó
+        currentDifficulty = difficulty;
 
-        // Đưa tất cả về trạng thái chưa chọn (Nền trắng, viền xám, chữ đen)
         tabBeginner.setBackgroundResource(R.drawable.bg_chip_inactive);
         tabBeginner.setTextColor(getResources().getColor(android.R.color.black));
 
@@ -90,23 +100,17 @@ public class QuizFragment extends Fragment {
         tabAdvanced.setBackgroundResource(R.drawable.bg_chip_inactive);
         tabAdvanced.setTextColor(getResources().getColor(android.R.color.black));
 
-        // Nổi bật Tab đang chọn lên (Nền xanh, chữ trắng)
         selectedTab.setBackgroundResource(R.drawable.bg_chip_active);
         selectedTab.setTextColor(getResources().getColor(android.R.color.white));
     }
 
-    // Hàm mở Đấu trường QuizPlayActivity
     private void startQuiz(String category) {
         Intent intent = new Intent(getActivity(), QuizPlayActivity.class);
-
-        // GHÉP ĐỘ KHÓ VÀO THỂ LOẠI (VD: "Intermediate Listening")
         intent.putExtra("QUIZ_TYPE", currentDifficulty + " " + category);
-
         Toast.makeText(getContext(), "Đang mở: " + currentDifficulty + " " + category, Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
-    // Hiệu ứng "nhún" mượt mà
     private void setClickAnimation(View view) {
         if (view == null) return;
         view.setOnTouchListener((v, event) -> {
